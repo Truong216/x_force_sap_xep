@@ -1,5 +1,6 @@
 import { Dimensions } from 'react-native';
 
+export const COLOR = "#E62E5E";
 export const WIDTH_DEVICE = Dimensions.get('window').width;
 export const HEIGHT_DEVICE = Dimensions.get('window').height;
 export const PADDING = 16;

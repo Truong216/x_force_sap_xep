@@ -4,10 +4,12 @@ import {
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
-import Setting from './screens/SettingScreen';
 import Feather from 'react-native-vector-icons/Feather';
 import { PADDING } from './constants';
+
+import Setting from './screens/SettingScreen';
+import LoginScreen from './screens/LoginScreen';
+import SignInScrenn from './screens/SignInScreen';
 
 const Stack = createStackNavigator();
 
