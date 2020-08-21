@@ -4,90 +4,109 @@ export const COLOR = "#E62E5E";
 export const WIDTH_DEVICE = Dimensions.get('window').width;
 export const HEIGHT_DEVICE = Dimensions.get('window').height;
 export const PADDING = 16;
-export const OPTIONS = [
-  {
-    option: 'Quản lí',
-    type: [
-      {
-        id: 1,
-        icon: 'credit-card',
-        title: 'Nạp tiền vào Dino Credit'
-      },
-      {
-        id: 2,
-        icon: 'heart',
-        title: 'Khách sạn yêu thích',
-      },
-      {
-        id: 3,
-        icon: 'gift',
-        title: 'Ưu đãi',
-      },
-      {
-        id: 4,
-        icon: 'user-plus',
-        title: 'Danh bạ Dinogo',
-      },
-      {
-        id: 5,
-        icon: 'dollar-sign',
-        title: 'Hoá đơn',
-      },
-    ],
-  },
-  {
-    option: 'Ứng dụng dinogo',
-    type: [
-      {
-        id: 6,
-        icon: 'grid' ,
-        title: 'Tiện ích'
-      },
-      {
-        id: 7,
-        icon: 'settings',
-        title: 'Thiết lập'
-      },
-      {
-        id: 8,
-        icon: 'hexagon',
-        title: 'Giới thiệu & Chia sẻ'
-      },
-    ],
-  },
-  {
-    option: 'Trợ giúp',
-    type: [
-      {
-        id: 9,
-        icon: 'send',
-        title: 'Chat với Dinogo'
-      },
-      {
-        id: 10,
-        icon: 'phone-call' ,
-        title: 'Gọi tổng đài Dinogo'
-      },
-      {
-        id: 11,
-        icon: 'message-circle',
-        title: 'Phản hồi'
-      },
-      {
-        id: 12,
-        icon: 'activity',
-        title: 'Điều kiện hoàn huỷ'
-      },
-      {
-        id: 13,
-        icon: 'aperture',
-        title: 'Điều kiện xuất hoá đơn VAT'
-      },
-      {
-        id: 14,
-        icon: 'help-circle',
-        title: 'Hướng dẫn thanh toán trực tuyến'
-      },
-    ]
-  }
-]
+export const PROFILE = {
+  option: 'Profile',
+  type: [
+    {
+      id: 1,
+      icon: 'lock',
+      title: 'Thay đổi mật khẩu'
+    },
+    {
+      id: 2,
+      icon: 'users',
+      title: 'Mời bạn bè',
+    },
+    {
+      id: 3,
+      icon: 'gift',
+      title: 'Ưu đãi & Khuyến mại',
+    },
+    {
+      id: 4,
+      icon: 'help-circle',
+      title: 'Trợ giúp',
+    },
+    {
+      id: 5,
+      icon: 'credit-card',
+      title: 'Thanh toán',
+    },
+    {
+      id: 6,
+      icon: 'settings',
+      title: 'Cài đặt'
+    }
+  ],
+};
+export const SETTING = {
+  option: 'Setting',
+  type: [
+    {
+      id: 1,
+      icon: 'bell',
+      title: 'Thông báo'
+    },
+    {
+      id: 2,
+      desc: 'Việt Nam',
+      title: 'Quốc gia',
+    },
+    {
+      id: 3,
+      desc: 'VND',
+      title: 'Tiền tệ',
+    },
+    {
+      id: 4,
+      icon: 'chevron-right',
+      title: 'Điều khoản dịch vụ',
+    },
+    {
+      id: 5,
+      icon: 'chevron-right',
+      title: 'Chính sách bảo mật',
+    },
+    {
+      id: 6,
+      icon: 'chevron-right',
+      title: 'Gửi phản hồi'
+    },
+    {
+      id: 7,
+      icon: 'chevron-right',
+      title: 'Đăng xuất'
+    }
+  ],
+};
+
+export const ACCOUNT = {
+  option: 'Account',
+  type: [
+    {
+      id: 1,
+      desc: 'Nguyễn Nghĩa Hùng',
+      title: 'Họ và tên',
+    },
+    {
+      id: 2,
+      desc: 'nnhungjs@gmail.com',
+      title: 'Email',
+    },
+    {
+      id: 3,
+      desc: '0866979200',
+      title: 'Điện thoại',
+    },
+    {
+      id: 4,
+      desc: '30/09/2000', //Phải sử dụng moment ở đây
+      title: 'Ngày sinh',
+    },
+    {
+      id: 5,
+      desc: 'Cầu Giấy, Hà Nội',
+      title: 'Địa chỉ',
+    },
+  ],
+}
