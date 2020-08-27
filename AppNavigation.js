@@ -4,8 +4,9 @@ import {
   Text,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-
 import Feather from 'react-native-vector-icons/Feather';
+
+import { useSelector, } from 'react-redux';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -22,17 +23,8 @@ import EditProfile from './screens/EditProfile';
 
 import Welcome from './screens/Welcome';
 import Login from './screens/Login';
-import SignIn from './screens/SignIn';
-
-import { useSelector, } from 'react-redux';
-
-function Explore() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Explore</Text>
-    </View>
-  );
-}
+import SignUp from './screens/SignUp';
+import Home from './screens/Home';
 
 function Trips() {
   return (
@@ -68,7 +60,7 @@ function LoginStackScreen() {
       >
         <LoginStack.Screen name="Welcome" component={Welcome} />
         <LoginStack.Screen name="Login" component={Login} />
-        <LoginStack.Screen name="SignIn" component={SignIn} />
+        <LoginStack.Screen name="SignUp" component={SignUp} />
       </LoginStack.Navigator>
     </NavigationContainer>
   );
@@ -111,7 +103,7 @@ function AppNavigation() {
           },
         })}
       >
-        <Tab.Screen name="Explore" component={Explore} />
+        <Tab.Screen name="Explore" component={Home} />
         <Tab.Screen name="Trips" component={Trips} />
         <Tab.Screen name="Profile" component={ProfileStackScreen}/>
       </Tab.Navigator>

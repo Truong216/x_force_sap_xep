@@ -39,12 +39,12 @@ export default function LoginScreen(){
           onPress={() => {alert('Đăng nhập FB')}}
         />
         <SocialIcon
-          title='Message'
+          title='Google'
           button={true}
-          type='twitter'
-          style={styles.twitter}
+          type='google'
+          style={styles.google}
           iconSize={30}
-          onPress={() => {alert('Đăng nhập Twitter')}}
+          onPress={() => {alert('Đăng nhập google')}}
         />
       </View>
       <Text style={{textAlign: 'center', marginVertical: 12, color: "#aaa"}}>
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   facebook: {
     flex: 1,
   },
-  twitter: {
+  google: {
     flex: 1,
   },
   textInput: {

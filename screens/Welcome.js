@@ -7,7 +7,6 @@ import {
   Image,
   TouchableOpacity, 
 } from 'react-native';
-// import Color from '../components/Color'; 
 
 export default function WelcomeScreen({ navigation }) {
   return(
@@ -19,7 +18,7 @@ export default function WelcomeScreen({ navigation }) {
       <TouchableOpacity
         style={styles.loginButton}
         onPress={() => {
-          navigation.navigate('Login');
+          navigation.navigate('SignUp');
         }}
       >
         <Text style={{color: "#fff", fontSize: 24, fontWeight: '400'}}>Sign Up</Text>
@@ -27,7 +26,7 @@ export default function WelcomeScreen({ navigation }) {
       <TouchableOpacity
         style={styles.signupText}
         onPress={() => {
-          navigation.navigate('SignIn');
+          navigation.navigate('Login');
         }}
       >
         <Text style={{color: '#fff', fontSize: 16}}>Already have account? </Text>

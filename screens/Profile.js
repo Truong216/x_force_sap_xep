@@ -10,12 +10,12 @@ import {
 import { ScrollView } from 'react-native-gesture-handler';
 
 import ListItems from '../components/ListItems';
-import Card from '../components/Card';
+import CardProfile from '../components/CardProfile';
 
 export default function Profile({ navigation }){
   return(
     <ScrollView style={styles.container}>
-      <Card navigation={navigation} />
+      <CardProfile navigation={navigation} />
       {
         <ListItems data={PROFILE} navigation={navigation}/>
       }
