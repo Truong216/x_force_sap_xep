@@ -22,7 +22,6 @@ export default function LoginScreen(){
   return(
     <>
     <View style={styles.container}>
-      <Feather name='arrow-left' color='#000' size={24}/>
       <Text style={styles.textSignup}>
         Sign up
       </Text>
@@ -140,7 +139,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f2f2f2',
     paddingHorizontal: PADDING,
-    marginTop: 30,
+    marginTop: 60,
   },
   textSignup: {
     fontSize: 32,

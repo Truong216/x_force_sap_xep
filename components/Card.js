@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row', 
     justifyContent: 'space-between',
-    marginTop: 20,
+    marginTop: 60,
   },
   wrapText: {
     justifyContent: 'center'

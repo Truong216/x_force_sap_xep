@@ -29,7 +29,7 @@ export default function Setting(){
 const styles = StyleSheet.create({
   container: {
     padding: PADDING,
-    marginTop: 20,
+    marginTop: 40,
   },
   textSettings: {
     marginVertical: 12,

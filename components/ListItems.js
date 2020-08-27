@@ -17,11 +17,10 @@ function Item({ item, navigation }){
       }}
     >
       <View style={styles.wrapItem}>
-        <View style={styles.item}>
-          
-            <Text style={styles.text}>
-              {item.title}
-            </Text>
+        <View style={styles.item}> 
+          <Text style={styles.text}>
+            {item.title}
+          </Text>
         </View>
         {
           item.icon ? <Feather name={item.icon} style={styles.icon}/> : <Text style={{fontSize: 18,}}>{item.desc}</Text> 

@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-
 import { 
   View,
   Text,
   StyleSheet,
   TextInput
 } from 'react-native';
-
 import { 
   PADDING,
 } from '../constants';
@@ -15,14 +13,19 @@ import { SocialIcon } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Feather from 'react-native-vector-icons/Feather';
 
-export default function LoginScreen(){
+import { useSelector, useDispatch } from 'react-redux';
+import { login } from '../redux/actions';
 
+export default function LoginScreen(){
+  const isWrong = useSelector(state => state.loginReducer.isWrong);
+  const dispatch = useDispatch();
+  let [username, setUsername] = useState(null);
+  let [password, setPassword] = useState(null);
   const [hidePassword, setHidePassword] = useState(true);
 
   return(
     <>
     <View style={styles.container}>
-      <Feather name='arrow-left' color='#000' size={24}/>
       <Text style={styles.textLogin}>
         Log in
       </Text>
@@ -47,11 +50,13 @@ export default function LoginScreen(){
       <Text style={{textAlign: 'center', marginVertical: 12, color: "#aaa"}}>
         or login with email
       </Text>
+      { isWrong ? <Text>WrongPassWord</Text> : <Text></Text>}
       <View>
         <View style={styles.wrapTextInput}> 
           <TextInput 
             style={styles.textInput}
             placeholder='Your Email'
+            onChangeText={text => setUsername(text)}
           />
         </View>
         <View style={styles.wrapTextInput}> 
@@ -60,6 +65,7 @@ export default function LoginScreen(){
             placeholder='Password'
             keyboardType='default'
             secureTextEntry={hidePassword}
+            onChangeText={text => setPassword(text)}
           />
           { hidePassword ?  
             <TouchableOpacity 
@@ -67,14 +73,14 @@ export default function LoginScreen(){
               setHidePassword(!hidePassword);
               }}
             >
-              <Feather name='eye' size={16} color='#68d3c2'/>
+              <Feather name='eye-off' size={16} color='#68d3c2' style={styles.eye} />
             </TouchableOpacity> : 
             <TouchableOpacity
               onPress={ () => {
                 setHidePassword(!hidePassword);
               }}
             >
-              <Feather name='eye-off' size={16} color='#68d3c2'/>
+              <Feather name='eye' size={16} color='#68d3c2' style={styles.eye} />
             </TouchableOpacity>
           }
         </View>
@@ -87,7 +93,9 @@ export default function LoginScreen(){
         </View>
       </View>
       <View>
-        <TouchableOpacity style={styles.buttonLogin}>
+        <TouchableOpacity style={styles.buttonLogin}
+          onPress={ () => dispatch(login({username: username, password: password}))}
+        >
           <Text style={{textAlign: 'center', color: '#fff'}}>
             Login
           </Text>
@@ -114,7 +122,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f2f2f2',
     paddingHorizontal: PADDING,
-    marginTop: 30,
+    paddingTop: 60,
   },
   textLogin: {
     fontSize: 32,
@@ -166,5 +174,8 @@ const styles = StyleSheet.create({
     color: '#68d3c2',
     fontWeight: 'bold',
     marginLeft: 8,
+  },
+  eye: {
+    marginRight: 16,
   }
 })

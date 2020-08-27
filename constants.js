@@ -110,3 +110,9 @@ export const ACCOUNT = {
     },
   ],
 }
+
+export const account = {
+  id: '1',
+  usename: 'hungbn12301',
+  password: 'hungbn01',
+}
