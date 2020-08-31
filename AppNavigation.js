@@ -24,7 +24,10 @@ import EditProfile from './screens/EditProfile';
 import Welcome from './screens/Welcome';
 import Login from './screens/Login';
 import SignUp from './screens/SignUp';
+
 import Home from './screens/Home';
+import Hotel from './components/Hotel-1';
+import Detail from './components/Detail-1';
 
 function Trips() {
   return (

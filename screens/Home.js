@@ -1,18 +1,60 @@
 import { StatusBar } from 'expo-status-bar'
-import React from 'react';
-import { StyleSheet, Text, View, TouchableWithoutFeedback, ScrollView, Dimensions, Image  } from 'react-native';
-import { MaterialCommunityIcons } from 'react-native-vector-icons';
+import React, { useState } from 'react';
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  TouchableWithoutFeedback, 
+  ScrollView, 
+  Dimensions, 
+  Image, 
+  Button, 
+  TouchableHighlight  
+} from 'react-native';
+
+import { useDispatch, useSelector } from 'react-redux'
+
+import { MaterialCommunityIcons } from "react-native-vector-icons";
 import { FontAwesome5 } from 'react-native-vector-icons';
+import { SearchBar } from 'react-native-elements';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import TopDestination from '../components/TopDestination'; 
 import HotelAround from '../components/HotelAround';
 
+import { bookTime } from '../redux/actions'
+
 const wd = Dimensions.get('window').width;
 
 export default function HomeScreen({ navigation }) {
+  const dispath = useDispatch();
+  const {checkin_date_id, checkout_date_id} = useSelector(state => state.inforBookReducer);  
+  const [inputText, setInputText] = useState('');
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    dispath(bookTime(currentDate,currentDate));
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+  const showTimepicker = () => {
+    showMode('time');
+  };
+
     return (
       <View style={styles.container}>
-        {/* <StatusBar barStyle="dark-content" /> */}
+        <StatusBar barStyle="dark-content" />
         <ScrollView style={styles.scrollView_container} >
           <View style={styles.booking_container}>
             <View style={styles.booking_padding}>
@@ -20,15 +62,38 @@ export default function HomeScreen({ navigation }) {
                 <MaterialCommunityIcons name="map-marker-radius" size={17} color="grey" />
                 <Text style={styles.booking_footer}>Địa điểm hoặc khách sạn</Text>
               </View>
-              <View style={styles.location_input}>
-                <Text style={styles.location_input_placeholder}>Nhập điểm đến hoặc tên khách sạn</Text>
+              <View>
+                <SearchBar
+                  placeholder="Nhập điểm đến hoặc tên khách sạn"
+                  onChangeText={text => setInputText(text)}
+                  value={inputText}
+                  lightTheme={true}
+                  inputContainerStyle={{backgroundColor: null}}
+                  // style={styles.location_input_placeholder}
+                />
               </View>
               <View style={styles.date_input}>
-                <Text style={styles.date_day}>9</Text>
-                <View style={{paddingRight: 30}}>
-                  <Text style={styles.date_weekdays}>Chủ nhật</Text>
-                  <Text style={styles.date_month}>Tháng 8</Text>
-                </View>
+                <TouchableHighlight
+                  onPress={showDatepicker}
+                >
+                  <>
+                    <Text style={styles.date_day}> {(new Date(checkin_date_id)).getDate()} </Text>
+                    <View style={{paddingRight: 30}}>
+                      <Text style={styles.date_weekdays}> {(new Date(checkin_date_id)).getDay()} </Text>
+                      <Text style={styles.date_month}>{`Tháng ${(new Date(checkin_date_id)).getMonth()}`}</Text>
+                    </View>
+                  </>
+                </TouchableHighlight>
+                {show && (
+                  <DateTimePicker
+                    testID="dateTimePicker"
+                    value={new Date(checkin_date_id)}
+                    mode={mode}
+                    is24Hour={true}
+                    display="default"
+                    onChange={onChange}
+                  />
+                )}
                 <FontAwesome5 name="arrow-right" size={24} color="black" style={{paddingRight: 30}}/>
                 <Text style={styles.date_day}>10</Text>
                 <View>
@@ -107,8 +172,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     marginLeft: 10,
     marginRight: 10, 
-    alignItems: "center"
-  },
+    },
   booking_footer: {
     fontSize: 12, 
     color: 'grey', 

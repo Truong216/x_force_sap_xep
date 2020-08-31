@@ -28,3 +28,13 @@ export function logout() {
     },
   };
 }
+
+export function bookTime(checkin_date_id, checkout_date_id) {
+  return {
+    type: ActionTypes.BOOK_TIME,
+    payload: {
+      checkin_date_id,
+      checkout_date_id,
+    }
+  }
+}
