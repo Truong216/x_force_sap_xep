@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, ScrollView } from 'react-native';
-import { Color } from './Color'; 
+import  Color  from "./Color"; 
 import { StatusBar } from 'expo-status-bar';
 import { AntDesign } from 'react-native-vector-icons';
 import { FontAwesome } from 'react-native-vector-icons';

@@ -28,7 +28,7 @@ import SignUp from './screens/SignUp';
 import Home from './screens/Home';
 import Hotel from './components/Hotel-1';
 import Detail from './components/Detail-1';
-
+import Hotel_find from './screens/Hotel_find';
 function Trips() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -71,10 +71,9 @@ function LoginStackScreen() {
 
 function AppNavigation() {
   const isLogin = useSelector(state => state.loginReducer.isLogin);
-  console.log(isLogin);
   return (
-    isLogin ? 
-    ( <NavigationContainer>
+    // isLogin ? 
+    /*(*/ <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
@@ -106,13 +105,13 @@ function AppNavigation() {
           },
         })}
       >
-        <Tab.Screen name="Explore" component={Home} />
-        <Tab.Screen name="Trips" component={Trips} />
+        <Tab.Screen name="Explore" component={Hotel_find} />
+        <Tab.Screen name="Trips" component={Detail} />
         <Tab.Screen name="Profile" component={ProfileStackScreen}/>
       </Tab.Navigator>
-    </NavigationContainer> ) : (
+    </NavigationContainer> /*) : (
       <LoginStackScreen />
-    )
+    )*/
   );
 }
 
