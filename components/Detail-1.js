@@ -20,7 +20,6 @@ export default function DetailsScreen({ navigation }) {
   const multiSliderValuesChange = (values) => setMultiSliderValue(values)
   const [priceValue, setPriceValue] = useState([0, 50])
   const PriceValuesChange = (values) => setPriceValue(values)
-  
   const actioon = () =>
   ActionSheetIOS.showActionSheetWithOptions(
     {

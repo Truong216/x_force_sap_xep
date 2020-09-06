@@ -1,9 +1,36 @@
-import React from 'react';
-import { ImageBackground, StyleSheet, View, Text, Image, ScrollView, blurRadius, TextInput } from 'react-native';
+import React, {useState} from 'react';
+import { ImageBackground, StyleSheet, View, Text, Image, ScrollView, blurRadius, TextInput, Dimensions } from 'react-native';
 import Color from '../components/Color'; 
 import { StatusBar } from 'expo-status-bar';
 import { FontAwesome } from '@expo/vector-icons';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import moment from "moment";
+import DateRangePicker from "react-native-daterange-picker";
+import BottomSheet from 'reanimated-bottom-sheet';
+const wp = Dimensions.get('window').width;
+const hp = Dimensions.get('window').height;
 export default function Hotel_find() {
+  const [startDate, setStartDate] = useState(null)
+  const [endDate, setEndDate] = useState(null)
+  const [displayedDate, setDisplayedDate] = useState(moment())
+  const [minDate, setMinDate] = useState(moment().set("date", 17))
+  const setDates = (dates) => {
+    dates.startDate ? setStartDate(dates.startDate) : setEndDate(dates.endDate);
+    
+  };
+
+  const renderContent = () => (
+    <View
+      style={{
+        backgroundColor: 'white',
+        padding: 16,
+        height: 450,
+      }}
+    >
+      <Text>Swipe down to close</Text>
+    </View>
+  );
+  const sheetRef = React.useRef(null);
     return(
         <View style={styles.container}>
             <StatusBar barStyle="dark-content" />
@@ -15,14 +42,31 @@ export default function Hotel_find() {
               <View style={styles.Input_container}>
                 <TextInput style={styles.Input} > </TextInput>
                 <View style={styles.info_Container}>
-                  <View style={styles.info_date}>
-                    <Text style={styles.info_date_title}>CHỌN NGÀY</Text>
-                    <Text style={styles.info_date_day}>12 Dec - 15 Dec</Text>
-                  </View>
-                  <View style={styles.info_person}>
-                    <Text style={styles.info_date_title}>SỐ PHÒNG</Text>
-                    <Text style={styles.info_date_day}>10 Room - 20 Adults </Text>
-                  </View>
+                <View style={styles.info_date}>
+                  <DateRangePicker
+                    onChange={setDates}
+                    endDate={endDate}
+                    startDate={startDate}
+                    displayedDate={displayedDate}
+                    minDate={minDate}
+                    selectedStyle={{backgroundColor: Color.primary}}
+                    presetButtons={true}
+                    buttonTextStyle={{paddingLeft: wp/15, paddingRight: wp/15, color: Color.primary}}
+                    buttonStyle={{borderColor: Color.primary}}
+                    range
+                    >
+                      <View style={{justifyContent: 'space-between', height: '100%'}}>
+                      <Text style={styles.info_date_title}>CHỌN NGÀY</Text>
+                      <Text style={styles.info_date_day}>12 Dec - 15 Dec</Text>
+                      </View>
+                      </DateRangePicker>
+                    </View>            
+                    <View style={styles.info_person}>
+                      <TouchableWithoutFeedback onPress={() => sheetRef.current.snapTo(1)}>
+                        <Text style={styles.info_date_title}>SỐ PHÒNG</Text>
+                        <Text style={styles.info_date_day}>10 Room - 20 Adults </Text>
+                      </TouchableWithoutFeedback>
+                    </View>
                 </View>
                 <View style={styles.loginButton}>
                   <Text style={{color: "#fff", fontSize: 24, fontWeight: '400'}}>Tìm Kiếm</Text>
@@ -214,7 +258,7 @@ const styles = StyleSheet.create({
     flex: 0.5,
     borderRightColor: 'grey',
     borderRightWidth: 1,
-    justifyContent: "space-between"
+    // justifyContent: "space-between"
   },
   info_date_title: {
     fontSize: 10,
@@ -227,7 +271,8 @@ const styles = StyleSheet.create({
   info_person: {
     flex: 0.5,
     paddingLeft: 10,
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    zIndex: -1
   },
   loginButton: {
     width: "90%",
@@ -236,12 +281,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 20,
+    zIndex: -1,
   },
   city_container: {
     marginTop: 20,
     width: '100%',
     height: 240,
     paddingLeft: 20,
+    zIndex:-1
   },
   city_scrollView: {
     height: 200
@@ -257,7 +304,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.1)',
-    borderRadius: 15
+    borderRadius: 15,
   },
   city_name: {
     position: 'absolute',
