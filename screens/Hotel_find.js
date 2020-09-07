@@ -1,12 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import { ImageBackground, StyleSheet, View, Text, Image, ScrollView, blurRadius, TextInput, Dimensions } from 'react-native';
 import Color from '../components/Color'; 
 import { StatusBar } from 'expo-status-bar';
 import { FontAwesome } from '@expo/vector-icons';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { TouchableWithoutFeedback, TouchableOpacity } from 'react-native-gesture-handler';
+import { AntDesign } from '@expo/vector-icons';
 import moment from "moment";
 import DateRangePicker from "react-native-daterange-picker";
-import BottomSheet from 'reanimated-bottom-sheet';
+import BottomSheet from "react-native-gesture-bottom-sheet";
 const wp = Dimensions.get('window').width;
 const hp = Dimensions.get('window').height;
 export default function Hotel_find() {
@@ -16,24 +17,64 @@ export default function Hotel_find() {
   const [minDate, setMinDate] = useState(moment().set("date", 17))
   const setDates = (dates) => {
     dates.startDate ? setStartDate(dates.startDate) : setEndDate(dates.endDate);
-    
   };
 
-  const renderContent = () => (
-    <View
-      style={{
-        backgroundColor: 'white',
-        padding: 16,
-        height: 450,
-      }}
-    >
-      <Text>Swipe down to close</Text>
-    </View>
-  );
-  const sheetRef = React.useRef(null);
+  const bottomSheet = useRef();
     return(
         <View style={styles.container}>
             <StatusBar barStyle="dark-content" />
+              <BottomSheet hasDraggableIcon ref={bottomSheet} height={hp/1.8}>
+                <View style={styles.bottomSheet}>
+                  <View style={styles.bottom_row}>
+                    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: "space-around", width: wp/4}}>
+                      <Text style={{fontSize: 40}}>1</Text>
+                      <Text style={{ fontWeight: 'bold'}}>Phòng</Text>
+                    </View>
+                    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", width: wp/3.2}}>
+                     <TouchableOpacity> 
+                    <AntDesign name="minuscircle" size={50} color="#f3f3f3" />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                    <AntDesign name="pluscircle" size={50} color={Color.primary} />
+                    </TouchableOpacity>
+                    </View>
+                  </View>
+                  <View style={styles.bottom_row}>
+                    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: "space-around", width: wp/2.5}}>
+                      <Text style={{fontSize: 40}}>2</Text>
+                      <View style={{justifyContent: 'space-between', height: hp/18}}>
+                      <Text style={{ fontWeight: 'bold'}}>Người lớn</Text>
+                      <Text style={{fontSize: 12, color: 'grey'}}>Từ 13 tuổi trở lên</Text>
+                      </View>
+                    </View>
+                    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", width: wp/3.2}}>
+                    <TouchableOpacity>
+                    <AntDesign name="minuscircle" size={50} color="#e0e0e0"/>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                    <AntDesign name="pluscircle" size={50} color={Color.primary} />
+                    </TouchableOpacity>
+                    </View>
+                  </View>
+                  <View style={styles.bottom_row}>
+                    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: "space-around", width: wp/3}}>
+                      <Text style={{fontSize: 40}}>2</Text>
+                      <View style={{justifyContent: 'space-between', height: hp/18}}>
+                      <Text style={{ fontWeight: 'bold'}}>Trẻ em</Text>
+                      <Text style={{fontSize: 12, color: 'grey'}}>Dưới 13 tuổi</Text>
+                      </View>
+                    </View>
+                    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", width: wp/3.2}}>
+                    <TouchableOpacity>
+                    <AntDesign name="minuscircle" size={50} color="#e0e0e0"/>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                    <AntDesign name="pluscircle" size={50} color={Color.primary} />
+                    </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
+              </BottomSheet>
             <ScrollView style={styles.scrollView_container} showsVerticalScrollIndicator={false}>
               <View style={styles.Img_Background}>
                 <ImageBackground style={styles.background} source={require('../assets/Welcome.jpg')}>
@@ -62,7 +103,7 @@ export default function Hotel_find() {
                       </DateRangePicker>
                     </View>            
                     <View style={styles.info_person}>
-                      <TouchableWithoutFeedback onPress={() => sheetRef.current.snapTo(1)}>
+                      <TouchableWithoutFeedback onPress={() => bottomSheet.current.show()} style={{justifyContent: 'space-between', height: '100%'}}>
                         <Text style={styles.info_date_title}>SỐ PHÒNG</Text>
                         <Text style={styles.info_date_day}>10 Room - 20 Adults </Text>
                       </TouchableWithoutFeedback>
@@ -341,4 +382,17 @@ const styles = StyleSheet.create({
     top:  10,
     marginLeft: 10
   },
+  bottomSheet:{
+    marginHorizontal: wp/14,
+    height: hp/1.35,
+  },
+  bottom_row: {
+    height: hp/7,
+    justifyContent: "space-between",
+    borderBottomColor: "#dbd7d7",
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
 })
+//f3f3f3
