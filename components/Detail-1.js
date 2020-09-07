@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
 import React, { useState } from 'react'
-import { StyleSheet, Text, View,  ScrollView, Image, Dimensions, ActionSheetIOS } from 'react-native';
+import { StyleSheet, Text, View,  ScrollView, Image, Dimensions, ActionSheetIOS, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from 'react-native-vector-icons';
 import { MaterialCommunityIcons } from 'react-native-vector-icons';
@@ -14,6 +14,25 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
+
+
+const DATA = [
+  {
+    id: '1',
+    title: 'Cozrum Homes Trương Định',
+    address: '73 Trương Định, Quận 3, Hồ Chí Minh'
+  },
+  {
+    id: '2',
+    title: 'Cozrum Homes Trương Định lalaadfàdfd ad adf adfa àdđlanlesterd richhhghghg',
+    address: '73 Trương Định, Quận 3, Hồ Chí Minh dủeiewnjkvsnkcsdiauònádknf'
+  },
+  {
+    id: '3',
+    title: 'Cozrum Homes Trương Định',
+    address: '73 Trương Định, Quận 3, Hồ Chí Minh dủeiewnjkvsnkcsdiauònádknf'
+  }
+];
 
 export default function DetailsScreen({ navigation }) {
   const [multiSliderValue, setMultiSliderValue] = useState([0, 100])
@@ -38,6 +57,39 @@ export default function DetailsScreen({ navigation }) {
       }
     }
   );
+
+  const renderHotel = ({ item }) => {
+    return(
+          <View style={styles.card}>
+            <View style={styles.card_Img}>
+              <Image style={styles.Image} source={require('../assets/Hotel1.jpg')}/>
+              <View style={styles.card_heart}>
+                <AntDesign name="hearto" size={14} color={Color.primary} style={{padding: 10}}/>
+              </View>
+            </View>
+             <View style={styles.card_Info}>
+              <View style={styles.card_row_1}>
+                <View>
+                  <Text numberOfLines= {2} style={{fontSize: 14, fontWeight: "bold", color: '#111',  textAlign: 'left', marginLeft: 10}}>{item.title}</Text>
+                  <Text numberOfLines= {2} style={{fontSize: 11, color: 'grey', marginLeft: 10}}>{item.address}</Text>
+                </View>
+                <View style={{flexDirection: 'row', marginLeft: 10}}>
+                  <FontAwesome name="star" size={13} color={Color.primary} style={{paddingRight: 1}}/>
+                  <FontAwesome name="star" size={13} color={Color.primary} style={{paddingRight: 1}}/>
+                  <FontAwesome name="star" size={13} color={Color.primary} style={{paddingRight: 1}}/>    
+                  <FontAwesome name="star-o" size={13} color={Color.primary} style={{paddingRight: 1}}/>
+                  <FontAwesome name="star-o" size={13} color={Color.primary} style={{paddingRight: 1}}/>    
+                  <Text style={{color:'white', marginLeft: 7, fontSize: 12,paddingLeft: 5,paddingRight: 5, borderColor: 'black',backgroundColor: Color.primary}}>9.0</Text>
+                </View>
+              </View>
+              <View style={styles.card_row_2}>
+                <Text style={{fontSize: 15, fontWeight: 'bold'}}>435.000 đ</Text>
+                <Text style={{}}>/Đêm</Text>
+              </View>
+            </View> 
+          </View> 
+    );
+  };
 
   const renderContent = () => (
     <View
@@ -308,36 +360,12 @@ export default function DetailsScreen({ navigation }) {
           </View>
         </View>
         <View style={styles.flatList}>
-        <ScrollView style={styles.scrollView}>
-          <View style={styles.card}>
-            <View style={styles.card_Img}>
-              <Image style={styles.Image} source={require('../assets/Hotel1.jpg')}/>
-              <View style={styles.card_heart}>
-                <AntDesign name="hearto" size={14} color={Color.primary} style={{padding: 10}}/>
-              </View>
-            </View>
-             <View style={styles.card_Info}>
-              <View style={styles.card_row_1}>
-                <View>
-                  <Text numberOfLines= {2} style={{fontSize: 14, fontWeight: "bold", color: '#111',  textAlign: 'left', marginLeft: 10}}>Cozrum Homes Trương Định lalaadfàdfd ad adf adfa àdđlanlesterd richhhghghg</Text>
-                  <Text numberOfLines= {2} style={{fontSize: 11, color: 'grey', marginLeft: 10}}>73 Trương Định, Quận 3, Hồ Chí Minh lalaadfàdfd ad adf adfa àdđlanlesterd richhhghghg</Text>
-                </View>
-                <View style={{flexDirection: 'row', marginLeft: 10}}>
-                  <FontAwesome name="star" size={13} color={Color.primary} style={{paddingRight: 1}}/>
-                  <FontAwesome name="star" size={13} color={Color.primary} style={{paddingRight: 1}}/>
-                  <FontAwesome name="star" size={13} color={Color.primary} style={{paddingRight: 1}}/>    
-                  <FontAwesome name="star-o" size={13} color={Color.primary} style={{paddingRight: 1}}/>
-                  <FontAwesome name="star-o" size={13} color={Color.primary} style={{paddingRight: 1}}/>    
-                  <Text style={{color:'white', marginLeft: 7, fontSize: 12,paddingLeft: 5,paddingRight: 5, borderColor: 'black',backgroundColor: Color.primary}}>9.0</Text>
-                </View>
-              </View>
-              <View style={styles.card_row_2}>
-                <Text style={{fontSize: 15, fontWeight: 'bold'}}>435.000 đ</Text>
-                <Text style={{}}>/Đêm</Text>
-              </View>
-            </View> 
-          </View> 
-        </ScrollView>
+          <FlatList 
+            renderItem = {renderHotel}
+            keyExtractor={item => item.id}
+            data = {DATA}
+            
+          />
         <BottomSheet
               ref={sheetRef}
               snapPoints={[550, 0]}
@@ -409,17 +437,18 @@ const styles = StyleSheet.create({
     height: WIDTH*(9/10)*(24/35),
     backgroundColor: "#fff",
     borderRadius: 10,
-    marginBottom: 12,
-    marginRight: 5,
-    marginLeft: 15,
+    marginRight: WIDTH/24,
+    marginLeft: WIDTH/24,
+    marginTop: HEIGHT/30,
     shadowColor: "#000",
-    shadowOffset: {
-	  width: 0,
-	  height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+shadowOffset: {
+	width: 0,
+	height: 6,
+},
+shadowOpacity: 0.37,
+shadowRadius: 7.49,
+
+elevation: 12,
   },
   card_Img: {
     flex: 0.65,
