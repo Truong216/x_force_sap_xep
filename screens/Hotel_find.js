@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { FontAwesome } from '@expo/vector-icons';
 import { TouchableWithoutFeedback, TouchableOpacity } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import moment from "moment";
 import DateRangePicker from "react-native-daterange-picker";
 import BottomSheet from "react-native-gesture-bottom-sheet";
@@ -74,10 +75,24 @@ export default function Hotel_find() {
                     </View>
                   </View>
                 </View>
+                <View style={styles.button_view}>
+                <TouchableOpacity
+                  style={styles.Bottomsheet_Button}
+                  onPress={
+                    () => { bottomSheet.current.close()}     
+                }
+                >
+                  <Text style={{color: "#fff", fontSize: 20, fontWeight: '400'}}>Áp Dụng</Text>
+                </TouchableOpacity>
+                </View>
               </BottomSheet>
             <ScrollView style={styles.scrollView_container} showsVerticalScrollIndicator={false}>
               <View style={styles.Img_Background}>
-                <ImageBackground style={styles.background} source={require('../assets/Welcome.jpg')}>
+                <ImageBackground style={styles.background} source={require('../assets/hotel_find.jpg')} resizeMode={"cover"}>
+                    <LinearGradient locations={[0, 1]}  colors= 
+                      {['rgba(0,0,0,0.00)', '#f3f3f3']} 
+                      style={styles.linearGradient}>
+                    </LinearGradient>
                 </ImageBackground> 
               </View>
               <View style={styles.Input_container}>
@@ -275,10 +290,11 @@ const styles = StyleSheet.create({
   },
   Input_container: {
     position: 'absolute',
-    backgroundColor: '#eae9e7',
+    // backgroundColor: '#eae9e7',
+    backgroundColor: 'rgba(0,0,0,0.5)',
     width: '90%',
     height: 220,
-    marginTop: '64s%',
+    marginTop: '55%',
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "space-around",
@@ -297,17 +313,18 @@ const styles = StyleSheet.create({
   },
   info_date: {
     flex: 0.5,
-    borderRightColor: 'grey',
+    borderRightColor: '#fff',
     borderRightWidth: 1,
     // justifyContent: "space-between"
   },
   info_date_title: {
     fontSize: 10,
-    color: 'grey',
+    color: '#fff',
   },
   info_date_day: {
     fontWeight: 'bold',
-    fontSize: 14
+    fontSize: 14,
+    color: '#fff'
   },
   info_person: {
     flex: 0.5,
@@ -394,5 +411,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center'
   },
+  linearGradient: {
+    position:'absolute',
+    width:wp,
+    height:'50%'
+   },
+   button_view: {
+    width: wp,
+    height: hp/8,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: "#000",
+    shadowOffset: {
+	  width: 0,
+	  height: 8,
+  },
+  shadowOpacity: 0.46,
+  shadowRadius: 11.14,
+  elevation: 17,
+  },
 })
-//f3f3f3

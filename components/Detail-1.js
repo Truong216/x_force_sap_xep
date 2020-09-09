@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { StyleSheet, Text, View,  ScrollView, Image, Dimensions, ActionSheetIOS, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from 'react-native-vector-icons';
@@ -8,13 +8,14 @@ import { FontAwesome5 } from 'react-native-vector-icons';
 import { FontAwesome } from 'react-native-vector-icons';
 import { Feather } from '@expo/vector-icons';
 import  Color  from './Color'; 
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { TouchableWithoutFeedback, TouchableOpacity } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
-import BottomSheet from 'reanimated-bottom-sheet';
+import BottomSheet from "react-native-gesture-bottom-sheet";
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
-
+const wp = Dimensions.get('window').width;
+const hp = Dimensions.get('window').height;
 
 const DATA = [
   {
@@ -29,7 +30,7 @@ const DATA = [
   },
   {
     id: '3',
-    title: 'Cozrum Homes Trương Định',
+    title: 'Cozrum Homes Trương Định lalaadfàdfd ad adf adfa àdđlanlesterd richhhghghg',
     address: '73 Trương Định, Quận 3, Hồ Chí Minh dủeiewnjkvsnkcsdiauònádknf'
   }
 ];
@@ -39,6 +40,7 @@ export default function DetailsScreen({ navigation }) {
   const multiSliderValuesChange = (values) => setMultiSliderValue(values)
   const [priceValue, setPriceValue] = useState([0, 50])
   const PriceValuesChange = (values) => setPriceValue(values)
+  const bottomSheet = useRef();
   const actioon = () =>
   ActionSheetIOS.showActionSheetWithOptions(
     {
@@ -90,18 +92,19 @@ export default function DetailsScreen({ navigation }) {
           </View> 
     );
   };
-
-  const renderContent = () => (
+    return (
+      <SafeAreaView style={{ flex: 1 }}>
+        <StatusBar barStyle="dark-content" />
+        <BottomSheet hasDraggableIcon ref={bottomSheet} height={HEIGHT/1.2}>
     <View
       style={{
-        backgroundColor: 'grey',
         height: 550,
       }}
     >
       <View style={styles.BottomSheet_tittle}>
         <MaterialCommunityIcons name="reload" size={24} color={Color.primary} />
         <Text style={{fontSize: 16, fontWeight: 'bold'}}>Bộ Lọc</Text>
-        <TouchableWithoutFeedback onPress={() => sheetRef.current.snapTo(1)}>
+        <TouchableWithoutFeedback onPress={() => bottomSheet.current.close()}>
           <Feather name="x" size={24} color={Color.primary} />
         </TouchableWithoutFeedback>
       </View>
@@ -109,7 +112,11 @@ export default function DetailsScreen({ navigation }) {
         <View style={styles.BottomSheet_price}>
           <View style={styles.Bottom_warp}>
             <Text style={{fontSize: 16, fontWeight: 'bold'}}>Giá mỗi đêm</Text>
-            <View style={{justifyContent: "center", alignItems: 'center'}}>
+            <View style={{justifyContent: "center", alignItems: 'center',}}>
+            <View  style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, width: '100%'}}>
+              <Text style={{fontSize: 13}}>{(priceValue[0]*100000).toLocaleString('en-US')} đ</Text>
+              <Text style={{fontSize: 13}}>{(priceValue[1]*100000).toLocaleString('en-US')} đ+</Text>
+            </View>
             <MultiSlider
           markerStyle={{
             ...Platform.select({
@@ -163,10 +170,6 @@ export default function DetailsScreen({ navigation }) {
           minMarkerOverlapDistance={1}
         />
         </View>
-        <View  style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 5}}>
-          <Text style={{fontSize: 13}}>{(priceValue[0]*100000).toLocaleString('en-US')} đ</Text>
-          <Text style={{fontSize: 13}}>{(priceValue[1]*100000).toLocaleString('en-US')} đ+</Text>
-        </View>
           </View>
         </View>
         <View style={styles.BottomSheet_star}>
@@ -207,6 +210,10 @@ export default function DetailsScreen({ navigation }) {
           <View style={styles.Bottom_warp}>
             <Text style={{fontSize: 16, fontWeight: 'bold'}}>Đánh giá</Text>
             <View style={{justifyContent: "center", alignItems: 'center'}}>
+            <View  style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, width: '100%'}}>
+          <Text style={{fontSize: 13}}>{(multiSliderValue[0]/10).toFixed(1)}</Text>
+          <Text style={{fontSize: 13}}>{(multiSliderValue[1]/10).toFixed(1)}</Text>
+        </View>
             <MultiSlider
           markerStyle={{
             ...Platform.select({
@@ -260,10 +267,6 @@ export default function DetailsScreen({ navigation }) {
           minMarkerOverlapDistance={10}
         />
         </View>
-        <View  style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 5}}>
-          <Text style={{fontSize: 13}}>{(multiSliderValue[0]/10).toFixed(1)}</Text>
-          <Text style={{fontSize: 13}}>{(multiSliderValue[1]/10).toFixed(1)}</Text>
-        </View>
           </View>  
         </View>
         <View style={styles.BottomSheet_Kieu}>
@@ -283,7 +286,9 @@ export default function DetailsScreen({ navigation }) {
               </View>
               <View style={{flexDirection: 'row', width: WIDTH/1.9, justifyContent: 'space-between'}}>
                   <View style={styles.star_ratting}>
+                    <TouchableOpacity onPress={()=> {console.log('nha')}}>
                     <Text style={{fontSize: 12}}>Căn hộ/Villa</Text>
+                    </TouchableOpacity>
                   </View>
                   <View style={styles.star_ratting}>
                     <Text style={{fontSize: 12}}>Du thuyền</Text>
@@ -324,19 +329,8 @@ export default function DetailsScreen({ navigation }) {
           </View>  
         </View>
       </ScrollView>
-      <View style={styles.BottomSheet_button}>
-          <View style={styles.Select_Button} >
-            <Text style={{color: "#fff", fontSize: 16, fontWeight: '400'}}>Áp dụng</Text>
-          </View>
-      </View>
     </View>
-  );
-
-  const sheetRef = React.useRef(null);
-
-    return (
-      <SafeAreaView style={{ flex: 1 }}>
-        <StatusBar barStyle="dark-content" />
+    </BottomSheet>
         <View style={styles.menu_chose}>
           <View style={styles.menu_chose_first}> 
             <TouchableWithoutFeedback onPress={actioon}>
@@ -345,7 +339,7 @@ export default function DetailsScreen({ navigation }) {
                 <Text style={{fontSize: 14, paddingLeft: 3}}>Sắp xếp</Text>
               </View>
             </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={() => sheetRef.current.snapTo(0)}>
+            <TouchableWithoutFeedback onPress={() => bottomSheet.current.show()}>
               <View style={{flexDirection: 'row', alignItems: "center", marginLeft: 10}}>
                 <MaterialCommunityIcons name="sort-descending" size={24} color={Color.primary} />
                 <Text style={{fontSize: 14, paddingLeft:3}}>Bộ lọc</Text>
@@ -364,15 +358,8 @@ export default function DetailsScreen({ navigation }) {
             renderItem = {renderHotel}
             keyExtractor={item => item.id}
             data = {DATA}
-            
+            // horizontal={true}
           />
-        <BottomSheet
-              ref={sheetRef}
-              snapPoints={[550, 0]}
-              borderRadius={40}
-              renderContent={renderContent}
-              initialSnap={1}
-            />
         </View>
       </SafeAreaView>
     );
@@ -498,8 +485,6 @@ elevation: 12,
     color: 'pink',
   },
   BottomSheet_tittle: {
-    // width: WIDTH,
-    // height: HEIGHT/11.5,
     flex: 0.13,
     backgroundColor: '#fff',
     justifyContent: "space-between",
@@ -511,18 +496,24 @@ elevation: 12,
     width: WIDTH,
     height: HEIGHT/5.5,
     backgroundColor: '#fff',
+    borderBottomColor: '#dbd7d7',
+    borderBottomWidth: 3
   },
   BottomSheet_star: {
     width: WIDTH,
     height: HEIGHT/4.7,
     backgroundColor: '#fff',
-    marginTop: 5
+    marginTop: 5,
+    borderBottomColor: '#dbd7d7',
+    borderBottomWidth: 3
   },
   BottomSheet_rating: {
     width: WIDTH,
     height: HEIGHT/5.5,
     backgroundColor: '#fff',
-    marginTop: 5
+    marginTop: 5,
+    borderBottomColor: '#dbd7d7',
+    borderBottomWidth: 3
   },
   BottomSheet_button:{
     width: WIDTH,
@@ -564,12 +555,38 @@ elevation: 12,
     width: WIDTH,
     height: HEIGHT/4.7,
     backgroundColor: '#fff',
-    marginTop: 5
+    marginTop: 5,
+    borderBottomColor: '#dbd7d7',
+    borderBottomWidth: 3
   },
   BottomSheet_tien_ich: {
     width: WIDTH,
     height: HEIGHT/3,
     backgroundColor: '#fff',
-    marginTop: 5
-  }
+    marginTop: 5,
+    marginBottom: 150,
+  },
+  button_view: {
+    width: wp,
+    height: hp/8,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: "#000",
+    shadowOffset: {
+	  width: 0,
+	  height: 8,
+  },
+  shadowOpacity: 0.46,
+  shadowRadius: 11.14,
+  elevation: 17,
+  },
+  Bottomsheet_Button: {
+    width: wp*(9/10),
+    height: hp*(9/10)*(1/14),
+    backgroundColor: '#54d3c2',
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 50,
+  },
 });
